@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,6 +18,10 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "client")
 public class Client extends AbstractPersistable<Long> {
+
+    @JsonProperty("client_id")
+    @Column(name = "client_id", columnDefinition = "uuid", unique = true)
+    private UUID clientId = UUID.randomUUID();
 
     @JsonProperty("first_name")
     @Column(name = "first_name")

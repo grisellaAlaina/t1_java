@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import ru.t1.java.demo.model.enums.TransactionStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Getter
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "transaction")
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public class Transaction extends AbstractPersistable<Long> {
 
     @Column(name = "amount", precision = 15, scale = 2)
@@ -25,6 +27,17 @@ public class Transaction extends AbstractPersistable<Long> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private TransactionStatus status;
+
+    @Column(name = "transaction_id", unique = true)
+    private UUID transactionId = UUID.randomUUID();
+
+    @CreatedDate
+    @Column(name = "timestamp")
+    private LocalDateTime timestamp = LocalDateTime.now();
 
     @CreatedDate
     @Column(name = "transaction_time", nullable = false, updatable = false)

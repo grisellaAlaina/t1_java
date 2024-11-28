@@ -5,11 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import ru.t1.java.demo.model.enums.AccountStatus;
 import ru.t1.java.demo.model.enums.AccountType;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -32,6 +34,16 @@ public class Account extends AbstractPersistable<Long> {
 
     @Column(name = "balance", precision = 15, scale = 2)
     private BigDecimal balance;
+
+    @Column(name = "frozen_amount", precision = 15, scale = 2)
+    private BigDecimal frozenAmount;
+
+    @Column(name = "account_id", unique = true)
+    private UUID accountId = UUID.randomUUID();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private AccountStatus status;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Transaction> transactions = new HashSet<>();
