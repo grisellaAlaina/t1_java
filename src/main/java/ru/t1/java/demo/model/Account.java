@@ -35,6 +35,10 @@ public class Account extends AbstractPersistable<Long> {
     @Column(name = "balance", precision = 15, scale = 2)
     private BigDecimal balance;
 
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Transaction> transactions = new HashSet<>();
+
     @Column(name = "frozen_amount", precision = 15, scale = 2)
     private BigDecimal frozenAmount;
 
@@ -44,9 +48,6 @@ public class Account extends AbstractPersistable<Long> {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private AccountStatus status;
-
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Transaction> transactions = new HashSet<>();
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
