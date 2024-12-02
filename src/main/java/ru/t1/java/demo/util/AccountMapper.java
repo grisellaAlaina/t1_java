@@ -7,10 +7,13 @@ import ru.t1.java.demo.dto.TransactionDto;
 import ru.t1.java.demo.model.Account;
 import ru.t1.java.demo.model.Client;
 import ru.t1.java.demo.model.Transaction;
+import ru.t1.java.demo.model.enums.AccountStatus;
 import ru.t1.java.demo.repository.ClientRepository;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,6 +30,9 @@ public class AccountMapper {
                 .client(client)
                 .accountType(dto.getAccountType())
                 .balance(dto.getBalance())
+                .accountId(UUID.randomUUID())
+                .status(AccountStatus.OPEN)
+                .frozenAmount(BigDecimal.ZERO)
                 .build();
 
         Set<Transaction> transactionSet = new HashSet<>();

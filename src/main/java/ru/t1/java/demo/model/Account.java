@@ -35,7 +35,6 @@ public class Account extends AbstractPersistable<Long> {
     @Column(name = "balance", precision = 15, scale = 2)
     private BigDecimal balance;
 
-
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Transaction> transactions = new HashSet<>();
 

@@ -21,12 +21,17 @@ import java.time.LocalDateTime;
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionDto implements Serializable {
+
     private Long id;
+
     @JsonProperty("account_id")
     private Long accountId;
+
     @JsonProperty("amount")
     private BigDecimal amount;
+
     @JsonProperty("time")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime time;
+    private LocalDateTime time = LocalDateTime.now();
+
 }
