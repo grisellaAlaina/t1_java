@@ -27,7 +27,7 @@ public class TransactionConsumer {
         try {
             Transaction transaction = transactionMapper.toEntity(transactionDto);
             transaction.setTime(LocalDateTime.now());
-            Transaction savedTransaction = transactionService.save(transaction);
+            Transaction savedTransaction = transactionService.saveFromKafka(transaction);
 
             log.info("Transaction saved : {}", savedTransaction);
         } catch (Exception e) {

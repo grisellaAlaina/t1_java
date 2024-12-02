@@ -48,6 +48,8 @@ public class Account extends AbstractPersistable<Long> {
     @Column(name = "status")
     private AccountStatus status;
 
+
+
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
         transaction.setAccount(this);
