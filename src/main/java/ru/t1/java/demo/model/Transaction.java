@@ -21,6 +21,12 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 public class Transaction extends AbstractPersistable<Long> {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transaction_seq")
+    @SequenceGenerator(name = "transaction_seq", sequenceName = "transaction_seq", allocationSize = 1)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
+
     @Column(name = "amount", precision = 15, scale = 2)
     private BigDecimal amount;
 
